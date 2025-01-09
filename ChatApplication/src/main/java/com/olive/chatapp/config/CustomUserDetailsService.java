@@ -1,35 +1,33 @@
 package com.olive.chatapp.config;
 
+import com.olive.chatapp.model.User;
 import com.olive.chatapp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    private final UserRepository userRepository;
+    private final UserRepository userRep;
 
     @Autowired
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CustomUserDetailsService(UserRepository userRep) {
+        this.userRep = userRep;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        com.olive.chatapp.model.User user = userRepository.findByUsername(username).
-                orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-
-        return new User(
-                user.getUsername(), encodedPassword, new ArrayList<>());
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRep.findByUsername(username);
+        if (user.isPresent()) {
+            return org.springframework.security.core.userdetails.User.builder().username(user.get().getUsername()).build();
+        }
+        else{
+            throw new UsernameNotFoundException(username);
+        }
     }
 }
