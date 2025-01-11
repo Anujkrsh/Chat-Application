@@ -11,7 +11,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "TestSecret";
+    private final String SECRET = "ow6r/t+vw90/V19/b3/t8P7/v/P/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/v/9/";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -23,15 +23,15 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(SECRET).build().parseClaimsJws(token).getBody();
     }
 
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 3)) // 10 hours
+                .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
     }
 

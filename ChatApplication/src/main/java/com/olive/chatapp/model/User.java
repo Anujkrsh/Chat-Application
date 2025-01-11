@@ -21,7 +21,7 @@ public class User {
     private Integer id;
 
     @NotNull
-    @Column(nullable = false, length = 50) // Optional: customize column properties
+    @Column(unique = true, nullable = false, length = 50) // Optional: customize column properties
     private String username;
 
     @NotNull
@@ -30,7 +30,7 @@ public class User {
 
     @NotNull
     @Email
-    @Column(nullable = false, unique = true, length = 100) // Email should typically be unique
+    @Column(nullable = false, unique = false, length = 100) // Email should typically be unique
     private String email;
 
     @NotNull
