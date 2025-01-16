@@ -11,9 +11,9 @@
         <relativePath>../pom.xml</relativePath> <!-- Points to the parent POM -->
     </parent>
 
-    <artifactId>ChatApplication</artifactId>
+    <artifactId>core</artifactId>
     <packaging>jar</packaging>
-    <name>ChatApplication</name>
+    <name>core</name>
     <description>Chat Application child module</description>
 
     <dependencies>
@@ -71,8 +71,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

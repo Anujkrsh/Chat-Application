@@ -18,7 +18,8 @@
     <description>Parent POM for Chat Application</description>
 
     <modules>
-        <module>ChatApplication</module>
+        <module>core</module>
+        <!--<module>messaging</module>-->
     </modules>
 
     <properties>

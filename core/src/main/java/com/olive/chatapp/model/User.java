@@ -34,7 +34,7 @@ public class User {
     private String email;
 
     @NotNull
-    @Column(nullable = false, length = 15) // Optional: restrict phone number length
+    @Column(unique = true, length = 15) // Optional: restrict phone number length
     private String phoneNumber;
 
     @NotNull
